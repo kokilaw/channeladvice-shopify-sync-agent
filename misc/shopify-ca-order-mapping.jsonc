@@ -1,0 +1,27 @@
+{
+    "order": {
+      "note": "CA OrderId:4502058", // Order.ID
+      "tags": "eBay Fixed Price AU", // Order.SiteName
+      "customer": {
+        "email": "2c0badc7da2153d64e39@members.ebay.com", // Order.BuyerEmailAddress
+        "first_name": "sharon", // Order.ShippingFirstName
+        "last_name": "ashe", // Order.ShippingLastName
+        "phone": "+61455255225", // Order.ShippingDaytimePhone
+        "default_address": {
+            "first_name": "sharon", // Order.ShippingFirstName
+            "last_name": "ashe", // Order.ShippingLastName
+            "address1": "18 Irbys Circus", // Order.ShippingAddressLine2
+            "address2": "",
+            "city": "Sisters Beach", // Order.ShippingCity
+            "province": "Tasmania", // Order.ShippingStateOrProvinceName
+            "country": "Australia", // Order.ShippingCountry
+            "zip": "7321", // Order.ShippingPostalCode
+            "phone": "0455255225", // Order.ShippingDaytimePhone
+            "name": "sharon ashe", // Order.ShippingFirstName + Order.ShippingLastName 
+            "province_code": "TAS", // Order.ShippingStateOrProvince
+            "country_code": "AU", // Order.ShippingCountry
+            "country_name": "Australia" // Order.ShippingCountry
+        }
+      }
+    }
+}
