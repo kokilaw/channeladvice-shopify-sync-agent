@@ -5,9 +5,9 @@ const { channelAdvisorAPIConfigs } = require('../../configs')
 
 const getToken = async () =>  {
 
-    const applicationId = channelAdvisorAPIConfigs.applicationId;
-    const applicationSecret = channelAdvisorAPIConfigs.applicationSecret;
-    const refreshToken = channelAdvisorAPIConfigs.refreshToken;
+    const applicationId = channelAdvisorAPIConfigs.channelAdvisorApplicationId;
+    const applicationSecret = channelAdvisorAPIConfigs.channelAdvisorApplicationSecret;
+    const refreshToken = channelAdvisorAPIConfigs.channelAdvisorRefreshToken;
 
     const basicRawKey = `${applicationId}:${applicationSecret}`;
     const base64EncodedBasicKey = btoa(basicRawKey);
@@ -31,7 +31,7 @@ const getToken = async () =>  {
 
 const getOrderById = async (orderId) => {
     const accessToken = await getToken();
-    const { data } = await axiosHttpClient.get(`/v1/orders/${orderId}`, {
+    const { data } = await axiosHttpClient.get(`/v1/orders/${orderId}?$expand=Items,Fulfillments`, {
         headers: {
             'Authorization': `Bearer ${accessToken}`
         }
