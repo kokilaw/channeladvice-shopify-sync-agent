@@ -15,12 +15,15 @@ nvm install 16
 nvm alias default 16
 ```
 5. Set the following environment variables in `.env` file of project root
+    * PORT - 8080 (Or any preferred port)
+    * RUNNING_ENV - local
     * CHANNEL_ADVISOR_APPLICATION_ID
     * CHANNEL_ADVISOR_APPLICATION_SECRET
     * CHANNEL_ADVISOR_REFRESH_TOKEN
     * SHOPIFY_SHOP_ID
     * SHOPIFY_ADMIN_API_TOKEN
    
+
 4. Start Application
 ```shell
 npm start start-local
