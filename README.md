@@ -14,6 +14,13 @@ nvm install 16
 ```shell
 nvm alias default 16
 ```
+5. Set the following environment variables in `.env` file of project root
+    * CHANNEL_ADVISOR_APPLICATION_ID
+    * CHANNEL_ADVISOR_APPLICATION_SECRET
+    * CHANNEL_ADVISOR_REFRESH_TOKEN
+    * SHOPIFY_SHOP_ID
+    * SHOPIFY_ADMIN_API_TOKEN
+   
 4. Start Application
 ```shell
 npm start start-local
