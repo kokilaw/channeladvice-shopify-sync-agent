@@ -6,7 +6,7 @@
 ```shell
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
 ```
-2. Install Node v16.\*.\*
+2. Install Node v16
 ```shell
 nvm install 16
 ```
@@ -24,7 +24,12 @@ nvm alias default 16
     * SHOPIFY_ADMIN_API_TOKEN
    
 
-4. Start Application
+5. Install dependencies
+```shell
+npm install
+```
+
+5. Start Application
 ```shell
 npm start start-local
 ```
