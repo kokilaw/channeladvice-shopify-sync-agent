@@ -1,11 +1,11 @@
 const axios = require('axios');
-const { channelAdvisorAPIConfigs } = require('../../configs/index')
+const { shopifyAPIConfigs } = require('../../configs/index')
 
 // Set config defaults when creating the instance
 const instance = axios.create({
-    baseURL: channelAdvisorAPIConfigs.shopifyAdminAPI(channelAdvisorAPIConfigs.shopifyShopId),
+    baseURL: shopifyAPIConfigs.shopifyAdminAPI(shopifyAPIConfigs.shopifyShopId),
     headers: {
-        'X-Shopify-Access-Token': channelAdvisorAPIConfigs.shopifyAdminApiToken,
+        'X-Shopify-Access-Token': shopifyAPIConfigs.shopifyAdminApiToken,
         'Content-Type': 'application/json'
     }
 });

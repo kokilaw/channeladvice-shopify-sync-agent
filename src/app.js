@@ -2,6 +2,8 @@ const app = require('express')()
 const bodyParser = require('body-parser');
 require('dotenv').config();
 
+const { appConfig } = require('./configs/index')
+
 const orderRoutes = require('./routes/OrderRoutes')
 
 app.use(bodyParser.json());
@@ -23,6 +25,12 @@ app.use((err, req, res, next) => {
     console.error(err.message, err.stack);
     res.status(statusCode).json({'message': err.message});
 });
+
+if (appConfig.runningEnv === 'local') {
+    app.listen(appConfig.appPort, () => {
+        console.log(`Example app listening on port ${appConfig.appPort}`)
+    })
+}
 
 module.exports = {
     app
