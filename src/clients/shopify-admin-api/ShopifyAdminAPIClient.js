@@ -6,7 +6,8 @@ const createOrder = async (payload) => {
         const { data } = await axiosHttpClient.post('/orders.json', { order: payload });
         return data.order;
     } catch (e) {
-        console.log(JSON.stringify(e.response.data.errors))
+        console.log(JSON.stringify(e.response.data.errors));
+        throw e;
     }
 }
 
@@ -15,7 +16,8 @@ const createPaymentForOrder = async (orderId, payload) => {
         const { data } = await axiosHttpClient.post(`/orders/${orderId}/transactions.json`, { transaction: payload });
         return data;
     } catch (e) {
-        console.log(JSON.stringify(e.response.data.errors))
+        console.log(JSON.stringify(e.response.data.errors));
+        throw e;
     }
 }
 

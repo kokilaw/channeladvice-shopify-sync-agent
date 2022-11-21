@@ -5,6 +5,7 @@ require('dotenv').config();
 const { appConfig } = require('./configs/index')
 
 const orderRoutes = require('./routes/OrderRoutes')
+const webhookRoutes = require('./routes/WebhookRoutes')
 
 app.use(bodyParser.json());
 app.use(
@@ -18,6 +19,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/orders/process', orderRoutes);
+app.use('/webhooks', webhookRoutes);
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {

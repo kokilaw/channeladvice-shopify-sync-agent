@@ -55,9 +55,7 @@ const getCustomer = (channelAdvisorOrder) => {
         email: BuyerEmailAddress,
         first_name: ShippingFirstName,
         last_name: ShippingLastName,
-        // TODO - Fix below
-        // phone: formatPhoneNumber(ShippingDaytimePhone, ShippingCountry),
-        phone: '+6494080995',
+        phone: formatPhoneNumber(ShippingDaytimePhone, ShippingCountry),
         default_address: {
             first_name: ShippingFirstName,
             last_name: ShippingLastName,
@@ -65,9 +63,7 @@ const getCustomer = (channelAdvisorOrder) => {
             city: ShippingCity,
             province: ShippingStateOrProvinceName,
             zip: ShippingPostalCode,
-            // TODO - Fix below
-            // phone: formatPhoneNumber(ShippingDaytimePhone, ShippingCountry),
-            phone: '+6494080995',
+            phone: formatPhoneNumber(ShippingDaytimePhone, ShippingCountry),
             name: `${ShippingFirstName} ${ShippingLastName}`,
             province_code: ShippingStateOrProvinceName,
             country_code: ShippingCountry,
@@ -76,7 +72,14 @@ const getCustomer = (channelAdvisorOrder) => {
 }
 
 const formatPhoneNumber = (phoneNumber, countryCode) => {
+    if (phoneNumber === '555-555-5555') {
+        return `+640204${randomNumber(7)}`;
+    }
     return parsePhoneNumber(phoneNumber, countryCode).number;
+}
+
+function randomNumber(length) {
+    return Math.floor(Math.pow(10, length-1) + Math.random() * (Math.pow(10, length) - Math.pow(10, length-1) - 1));
 }
 
 const extractShopifyVariationId = (rawId) => {

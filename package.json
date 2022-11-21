@@ -11,12 +11,14 @@
   "author": "Kokila Widyaratna",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/firestore": "^6.4.1",
     "@google-cloud/functions-framework": "^3.1.2",
     "axios": "^1.1.3",
     "body-parser": "^1.20.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "libphonenumber-js": "^1.10.14",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "uuid": "^9.0.0"
   }
 }

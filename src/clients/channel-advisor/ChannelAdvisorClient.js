@@ -39,6 +39,24 @@ const getOrderById = async (orderId) => {
     return data;
 }
 
+const createOrderFulfillment = async (fulfillmentId, payload) => {
+    console.log(`[ChannelAdvisorClient] createOrderFulfillment - fulfillmentId[${fulfillmentId}] payload:[${JSON.stringify(payload)}]`)
+    const accessToken = await getToken();
+    try {
+        const { data } = await axiosHttpClient.put(`/v1/Fulfillments(${fulfillmentId})`, payload, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
+        return data;
+    } catch (e) {
+        console.log(JSON.stringify(e.response.data));
+        throw e;
+    }
+
+}
+
 module.exports = {
-    getOrderById
+    getOrderById,
+    createOrderFulfillment
 }

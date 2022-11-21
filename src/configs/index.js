@@ -32,6 +32,11 @@ const shopifyAPIConfigs = {
     shopifyAdminAPI: (shopId) => `https://${shopId}.myshopify.com/admin/api/2022-10`
 }
 
+const googleCloudConfig = {
+    projectId: getConfigFromEnv('GOOGLE_CLOUD_PROJECT_ID', false),
+    environment: getConfigFromEnv('GOOGLE_CLOUD_PROJECT_ENV', false)
+}
+
 const appConfig = {
     appPort: getConfigFromEnv('PORT', true) || 3000,
     runningEnv: getConfigFromEnv('RUNNING_ENV', true) || ''
@@ -40,5 +45,6 @@ const appConfig = {
 module.exports = {
     channelAdvisorAPIConfigs,
     shopifyAPIConfigs,
-    appConfig
+    appConfig,
+    googleCloudConfig
 }
