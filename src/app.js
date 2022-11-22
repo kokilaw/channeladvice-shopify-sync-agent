@@ -18,8 +18,8 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
-app.use('/orders/process', orderRoutes);
 app.use('/webhooks', webhookRoutes);
+app.use('/orders/process', orderRoutes);
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {

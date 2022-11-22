@@ -6,6 +6,8 @@ const ENVIRONMENT_VARIABLE_KEYS = {
     CHANNEL_ADVISOR_REFRESH_TOKEN: 'CHANNEL_ADVISOR_REFRESH_TOKEN',
     SHOPIFY_SHOP_ID: 'SHOPIFY_SHOP_ID',
     SHOPIFY_ADMIN_API_TOKEN: 'SHOPIFY_ADMIN_API_TOKEN',
+    GOOGLE_CLOUD_PROJECT_ENV: 'GOOGLE_CLOUD_PROJECT_ENV',
+    GOOGLE_CLOUD_PROJECT_ID: 'GOOGLE_CLOUD_PROJECT_ID',
 }
 
 const getConfigFromEnv = (key, isOptional) => {
@@ -33,8 +35,8 @@ const shopifyAPIConfigs = {
 }
 
 const googleCloudConfig = {
-    projectId: getConfigFromEnv('GOOGLE_CLOUD_PROJECT_ID', false),
-    environment: getConfigFromEnv('GOOGLE_CLOUD_PROJECT_ENV', false)
+    projectId: getConfigFromEnv(ENVIRONMENT_VARIABLE_KEYS.GOOGLE_CLOUD_PROJECT_ID, false),
+    environment: getConfigFromEnv(ENVIRONMENT_VARIABLE_KEYS.GOOGLE_CLOUD_PROJECT_ENV, false)
 }
 
 const appConfig = {

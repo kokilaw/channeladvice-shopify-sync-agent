@@ -4,8 +4,7 @@ const getShopifyOrderPayload = async (channelAdvisorOrder, caOrderItemsMapping, 
     const customer = getCustomer(channelAdvisorOrder);
     const line_items = getLineItems(channelAdvisorOrder.Items, caOrderItemsMapping, shopifyOrderItemsMapping)
     return {
-        // TODO - Check whether market place order Id can be passed
-        note: `[Test Order Please Ignore] CA OrderId:${channelAdvisorOrder.ID}`,
+        note: `[CA OrderId:${channelAdvisorOrder.ID}]\n[Site OrderId:${channelAdvisorOrder.SiteOrderID}]`,
         tags: channelAdvisorOrder.SiteName,
         contact_email: channelAdvisorOrder.BuyerEmailAddress,
         email: channelAdvisorOrder.BuyerEmailAddress,
