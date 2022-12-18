@@ -32,16 +32,15 @@ const processOrder = async (orderId) => {
 
     console.log(`Saving sync-order-request - orderId[${orderId}]`)
 
-    const shopifyOrderLineItemsMappingBySku = getShopifyOrderLineItemsMappingBySku(shopifyOrderLineItems);
-    const shopifyCAOrderLineItemMapping = getShopifyCAOrderLineItemMapping(caOrderItemsMapping, shopifyOrderLineItemsMappingBySku);
-    console.log(`Creating Shopify order payment - orderId[${orderId}] shopifyCAOrderLineItemMapping[${JSON.stringify(shopifyCAOrderLineItemMapping)}]`)
+    const shopifyCALineItemsMapping = getShopifyCALineItemsMapping(channelAdvisorOrder.Items, shopifyOrderLineItems);
+    console.log(`shopifyCALineItemsMapping - [${JSON.stringify(shopifyCALineItemsMapping)}]`)
     await syncOrderRequestRepository.saveNewSyncOrderRequest({
         caOrderId: orderId,
         shopifyOrderId,
         caOrder: channelAdvisorOrder,
         shopifyOrder: orderResponse,
         shopifyPayment: paymentResponse,
-        shopifyCAOrderLineItemMapping,
+        shopifyCALineItemsMapping,
         status: SYNC_ORDER_REQUEST_STATES.ORDER_SYNC_COMPLETE
     });
 
@@ -70,24 +69,14 @@ const getShopifyOrderItemsMapping = (items) => {
     return mapping;
 }
 
-const getShopifyOrderLineItemsMappingBySku = (items) => {
-    if (isEmpty(items)) {
-        throw 'Shopify line items cannot be empty!'
-    }
+const getShopifyCALineItemsMapping = (caLineItems, shopifyLineItems) => {
     const mapping = {};
-    items.forEach(item => mapping[item.sku] = { lineItemId: item.id, productId: item.product_id })
-    return mapping;
-}
-
-const getShopifyCAOrderLineItemMapping = (caOrderItemMapping, shopifyOrderLineItemsMappingBySku) => {
-    const shopifyOrderItemsSkus = Object.keys(shopifyOrderLineItemsMappingBySku);
-    const mapping = {};
-    shopifyOrderItemsSkus.forEach(shopifyOrderItemSku => mapping[shopifyOrderLineItemsMappingBySku[shopifyOrderItemSku].lineItemId] =
-        {
-            caOrderItemId: caOrderItemMapping[shopifyOrderItemSku].ID,
-            caProductId: caOrderItemMapping[shopifyOrderItemSku].ProductID
+    for (let i = 0; i < shopifyLineItems.length; i++) {
+        mapping[shopifyLineItems[i].id] = {
+            caOrderItemId: caLineItems[i].ID,
+            caProductId: caLineItems[i].ProductID
         }
-    );
+    }
     return mapping;
 }
 
