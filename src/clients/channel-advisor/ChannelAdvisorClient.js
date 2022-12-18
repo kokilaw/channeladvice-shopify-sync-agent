@@ -43,7 +43,7 @@ const createOrderFulfillment = async (payload) => {
     console.log(`[ChannelAdvisorClient] createOrderFulfillment - payload:[${JSON.stringify(payload)}]`)
     const accessToken = await getToken();
     try {
-        const { data } = await axiosHttpClient.put(`/v1/Fulfillments`, payload, {
+        const { data } = await axiosHttpClient.post(`/v1/Fulfillments`, payload, {
             headers: {
                 'Authorization': `Bearer ${accessToken}`
             }

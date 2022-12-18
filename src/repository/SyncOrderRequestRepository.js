@@ -4,7 +4,7 @@ const uuid = require('uuid');
 const { DB_COLLECTIONS } = require('../constant');
 
 
-const saveNewSyncOrderRequest = async ({id, caOrderId, shopifyOrderId, caOrder, shopifyOrder, shopifyPayment, status, description, shopifyCALineItemsMapping}) => {
+const saveNewSyncOrderRequest = async ({id, caOrderId, shopifyOrderId, caOrder, shopifyOrder, shopifyPayment, status, description, shopifyCALineItemsMapping, processedShopifyFulfillment}) => {
     await FirestoreClient.save(DB_COLLECTIONS.SYNC_ORDER_REQUEST, {
         id: id || uuid.v4(),
         caOrderId,
@@ -14,7 +14,8 @@ const saveNewSyncOrderRequest = async ({id, caOrderId, shopifyOrderId, caOrder, 
         shopifyPayment: shopifyPayment || {},
         status,
         shopifyCALineItemsMapping,
-        description: description || ''
+        description: description || '',
+        processedShopifyFulfillment: processedShopifyFulfillment || {}
     })
 }
 

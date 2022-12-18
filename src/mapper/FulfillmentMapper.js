@@ -1,15 +1,35 @@
-const getChannelAdvisorFulfillmentPayload = async (shopifyWebhookOrder) => {
-    const {fulfillments} = shopifyWebhookOrder;
-
+const getChannelAdvisorFulfillmentUpdatePayload = async (fulfillment) => {
     return {
         "DeliveryStatus": "Complete",
-        "TrackingNumber": fulfillments[0].tracking_number,
-        "ShippingCarrier": fulfillments[0].tracking_company,
-        "ShippedDateUtc": new Date(fulfillments[0].updated_at).toISOString()
+        "TrackingNumber": fulfillment.tracking_number,
+        "ShippingCarrier": fulfillment.tracking_company,
+        "ShippedDateUtc": new Date(fulfillment.updated_at).toISOString()
+    }
+}
+
+const getChannelAdvisorFulfillmentCreatePayload = async (caOrderId, caProfileId, fulfillment, shopifyCALineItemsMapping) => {
+    const { line_items: lineItems } = fulfillment;
+    const caFulfillmentItems = lineItems.map(shopifyLineItem => {
+        const caOrderItem = shopifyCALineItemsMapping[shopifyLineItem.id];
+        return {
+            'OrderItemID': caOrderItem.caOrderItemId,
+            'Quantity': shopifyLineItem.quantity
+        }
+    })
+
+    return {
+        "OrderID": caOrderId,
+        "ProfileID": caProfileId,
+        "DeliveryStatus": "Complete",
+        "TrackingNumber": fulfillment.tracking_number,
+        "ShippingCarrier": fulfillment.tracking_company,
+        "ShippedDateUtc": new Date(fulfillment.updated_at).toISOString(),
+        "Items": caFulfillmentItems
 
     }
 }
 
 module.exports = {
-    getChannelAdvisorFulfillmentPayload
+    getChannelAdvisorFulfillmentUpdatePayload,
+    getChannelAdvisorFulfillmentCreatePayload
 };

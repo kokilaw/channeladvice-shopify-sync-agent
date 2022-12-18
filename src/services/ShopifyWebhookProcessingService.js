@@ -1,21 +1,44 @@
 const channelAdvisorClient = require('../clients/channel-advisor/ChannelAdvisorClient')
-const { getChannelAdvisorFulfillmentPayload } = require('../mapper/FulfillmentMapper');
-const { getRequestByShopifyOrderId } = require('../repository/SyncOrderRequestRepository');
+const { getChannelAdvisorFulfillmentCreatePayload, getChannelAdvisorFulfillmentUpdatePayload } = require('../mapper/FulfillmentMapper');
+const { getRequestByShopifyOrderId, saveNewSyncOrderRequest } = require('../repository/SyncOrderRequestRepository');
 
 async function handleFullfilledWebhook(id, webhookPayload, isPartiallyFulfillment) {
     console.log(`Shopify orders/fulfilled webhook - id[${id}] webhookPayload:[${JSON.stringify(webhookPayload)}]`)
 
     const syncRequest = await getRequestByShopifyOrderId(webhookPayload.id);
     console.log(`Sync request for received order - id[${syncRequest.id}]`);
-    const {caOrder: {Fulfillments}, shopifyCAOrderLineItemMapping } = syncRequest;
+    const { caOrder: {ID: caOrderId, ProfileID: caProfileId, Fulfillments}, shopifyCALineItemsMapping, processedShopifyFulfillment = {} } = syncRequest;
 
-    console.log(`Creating CA fulfillment for sync-request - ${syncRequest.id}`)
-    const caFulfillmentPayload = await getChannelAdvisorFulfillmentPayload(webhookPayload, shopifyCAOrderLineItemMapping)
-    const response = isPartiallyFulfillment
-        ? await channelAdvisorClient.createOrderFulfillment(caFulfillmentPayload)
-        : await channelAdvisorClient.updateOrderFulfillment(Fulfillments[0].ID, caFulfillmentPayload)
+    const shopifyFulfillmentsToProcess = getShopifyFulfillmentToProcess(webhookPayload.fulfillments, processedShopifyFulfillment);
+    for (const shopifyFulfillmentToProcess of shopifyFulfillmentsToProcess) {
 
-    console.log(`CA fulfillment response - ${JSON.stringify(response)}`)
+        const shopifyFulfillmentIdToProcess = shopifyFulfillmentToProcess.id;
+
+        console.log(`Creating CA fulfillment for sync-request - ${syncRequest.id} shopifyFulfillmentToProcess[${JSON.stringify(shopifyFulfillmentToProcess)}]`)
+        const caFulfillmentCreatePayload = await getChannelAdvisorFulfillmentCreatePayload(caOrderId, caProfileId, shopifyFulfillmentToProcess, shopifyCALineItemsMapping)
+        const caFulfillmentUpdatePayload = await getChannelAdvisorFulfillmentUpdatePayload(shopifyFulfillmentToProcess)
+        const response = isPartiallyFulfillment
+            ? await channelAdvisorClient.createOrderFulfillment(caFulfillmentCreatePayload)
+            : await channelAdvisorClient.updateOrderFulfillment(Fulfillments[0].ID, caFulfillmentUpdatePayload)
+
+        console.log(`CA fulfillment response - ${JSON.stringify(response)}`)
+
+        const updatedProcessedShopifyFulfillment = {
+            ...processedShopifyFulfillment,
+            [shopifyFulfillmentIdToProcess]: {
+                caFulfillmentId: response.ID || ''
+            }
+        }
+
+        console.log(`updatedProcessedShopifyFulfillment - ${JSON.stringify(updatedProcessedShopifyFulfillment)}`)
+
+        await saveNewSyncOrderRequest({
+            ...syncRequest,
+            processedShopifyFulfillment: updatedProcessedShopifyFulfillment
+        })
+
+    }
+
     return {};
 }
 
@@ -36,6 +59,12 @@ const processWebhook = async (webhookTopic, webhookPayload) => {
 
     }
 
+    console.log(`Shopify webhook processed - id[${id}]`)
+
+}
+
+const getShopifyFulfillmentToProcess = (fulfillments, processedShopifyFulfillment) => {
+    return fulfillments.filter(shopifyFulfillment => !(shopifyFulfillment.id in processedShopifyFulfillment))
 }
 
 module.exports = {
