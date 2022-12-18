@@ -73,8 +73,44 @@ const updateOrderFulfillment = async (fulfillmentId, payload) => {
 
 }
 
+const retrieveFulfillment = async (fulfillmentItemId) => {
+    console.log(`[ChannelAdvisorClient] retrieveFulfillment - fulfillmentItemId[${fulfillmentItemId}]`)
+    const accessToken = await getToken();
+    try {
+        const { data } = await axiosHttpClient.get(`/v1/Fulfillments(${fulfillmentItemId})?$expand=Items`, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
+        return data;
+    } catch (e) {
+        console.log(JSON.stringify(e.response.data));
+        throw e;
+    }
+
+}
+
+const moveFulfillmentItem = async (fulfillmentItemId, payload) => {
+    console.log(`[ChannelAdvisorClient] moveFulfillmentItem - fulfillmentItemId[${fulfillmentItemId}] payload:[${JSON.stringify(payload)}]`)
+    const accessToken = await getToken();
+    try {
+        const { data } = await axiosHttpClient.post(`/v1/FulfillmentItems(${fulfillmentItemId})/Move`, payload, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
+        return data;
+    } catch (e) {
+        console.log(JSON.stringify(e.response.data));
+        throw e;
+    }
+
+}
+
 module.exports = {
     getOrderById,
     createOrderFulfillment,
-    updateOrderFulfillment
+    updateOrderFulfillment,
+    moveFulfillmentItem,
+    retrieveFulfillment
 }

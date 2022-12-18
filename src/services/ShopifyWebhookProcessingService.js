@@ -8,6 +8,8 @@ async function handleFullfilledWebhook(id, webhookPayload, isPartiallyFulfillmen
     const syncRequest = await getRequestByShopifyOrderId(webhookPayload.id);
     console.log(`Sync request for received order - id[${syncRequest.id}]`);
     const { caOrder: {ID: caOrderId, ProfileID: caProfileId, Fulfillments}, shopifyCALineItemsMapping, processedShopifyFulfillment = {} } = syncRequest;
+    const mainCAFulfillment = await channelAdvisorClient.retrieveFulfillment(Fulfillments[0].ID);
+
 
     const shopifyFulfillmentsToProcess = getShopifyFulfillmentToProcess(webhookPayload.fulfillments, processedShopifyFulfillment);
     for (const shopifyFulfillmentToProcess of shopifyFulfillmentsToProcess) {
@@ -22,6 +24,28 @@ async function handleFullfilledWebhook(id, webhookPayload, isPartiallyFulfillmen
             : await channelAdvisorClient.updateOrderFulfillment(Fulfillments[0].ID, caFulfillmentUpdatePayload)
 
         console.log(`CA fulfillment response - ${JSON.stringify(response)}`)
+
+        const newCAFulfillmentId = response.ID;
+        if (isPartiallyFulfillment) {
+            const itemsToMove = caFulfillmentCreatePayload.Items.map(item => {
+
+                const fulfillmentItem = mainCAFulfillment.Items.filter(fulfillmentItem => fulfillmentItem.OrderItemID === item.OrderItemID)[0];
+
+                return {
+                    'FulfillmentItemID': fulfillmentItem.ID,
+                    'DestinationFulfillmentID': newCAFulfillmentId,
+                    'Quantity': item.Quantity
+                }
+            });
+
+            for (const item of itemsToMove) {
+                await channelAdvisorClient.moveFulfillmentItem(item['FulfillmentItemID'], {
+                    'DestinationFulfillmentID': item['DestinationFulfillmentID'],
+                    'Quantity': item['Quantity']
+                });
+            }
+
+        }
 
         const updatedProcessedShopifyFulfillment = {
             ...processedShopifyFulfillment,
