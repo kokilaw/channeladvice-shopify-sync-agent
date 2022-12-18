@@ -11,7 +11,7 @@ const getShopifyOrderPayload = async (channelAdvisorOrder, caOrderItemsMapping, 
         customer,
         line_items,
         // TODO - Remove hardcoded values
-        payment_gateway_names: [ "The Market" ],
+        payment_gateway_names: ["The Market"],
         taxes_included: true,
         currency: channelAdvisorOrder.Currency,
         total_tax: channelAdvisorOrder.TotalTaxPrice,
@@ -21,7 +21,7 @@ const getShopifyOrderPayload = async (channelAdvisorOrder, caOrderItemsMapping, 
             price: channelAdvisorOrder.TotalTaxPrice,
             title: 'Tax'
         }],
-        shipping_address: { ...customer.default_address },
+        shipping_address: {...customer.default_address},
         shipping_lines: [{
             code: "custom",
             price: channelAdvisorOrder.TotalShippingPrice,
@@ -49,7 +49,17 @@ const getLineItems = (caOrderItems, caOrderItemsMapping, shopifyOrderItemsMappin
 }
 
 const getCustomer = (channelAdvisorOrder) => {
-    const {ShippingFirstName, ShippingLastName, BuyerEmailAddress, ShippingDaytimePhone, ShippingAddressLine2, ShippingCity, ShippingStateOrProvinceName, ShippingCountry, ShippingPostalCode} = channelAdvisorOrder;
+    const {
+        ShippingFirstName,
+        ShippingLastName,
+        BuyerEmailAddress,
+        ShippingDaytimePhone,
+        ShippingAddressLine2,
+        ShippingCity,
+        ShippingStateOrProvinceName,
+        ShippingCountry,
+        ShippingPostalCode
+    } = channelAdvisorOrder;
     return {
         email: BuyerEmailAddress,
         first_name: ShippingFirstName,
@@ -78,12 +88,12 @@ const formatPhoneNumber = (phoneNumber, countryCode) => {
 }
 
 function randomNumber(length) {
-    return Math.floor(Math.pow(10, length-1) + Math.random() * (Math.pow(10, length) - Math.pow(10, length-1) - 1));
+    return Math.floor(Math.pow(10, length - 1) + Math.random() * (Math.pow(10, length) - Math.pow(10, length - 1) - 1));
 }
 
 const extractShopifyVariationId = (rawId) => {
     const results = rawId.split("/")
-    return results[results.length -1]
+    return results[results.length - 1]
 }
 
 module.exports = {
