@@ -107,10 +107,29 @@ const moveFulfillmentItem = async (fulfillmentItemId, payload) => {
 
 }
 
+const refundItem = async (orderItemId, payload) => {
+    console.log(`[ChannelAdvisorClient] refundItem - orderItemId[${orderItemId}] payload:[${JSON.stringify(payload)}]`)
+    const accessToken = await getToken();
+    try {
+        const { data } = await axiosHttpClient.post(`/v1/OrderItems(${orderItemId})/Adjust`, payload, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
+        console.log(`[ChannelAdvisorClient] refundItem - response:[${JSON.stringify(data)}]`)
+        return data;
+    } catch (e) {
+        console.log(JSON.stringify(e.response.data));
+        throw e;
+    }
+
+}
+
 module.exports = {
     getOrderById,
     createOrderFulfillment,
     updateOrderFulfillment,
     moveFulfillmentItem,
-    retrieveFulfillment
+    retrieveFulfillment,
+    refundItem
 }

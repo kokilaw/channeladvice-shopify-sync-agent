@@ -66,6 +66,32 @@ async function handleFullfilledWebhook(id, webhookPayload, isPartiallyFulfillmen
     return {};
 }
 
+async function handleRefundWebhook(id, webhookTopic, webhookPayload) {
+    console.log(`Shopify refunds/create webhook - id[${id}] webhookPayload:[${JSON.stringify(webhookPayload)}]`)
+    const { refund_line_items: refundLineItems } = webhookPayload;
+    const syncRequest = await getRequestByShopifyOrderId(webhookPayload.order_id);
+    const { shopifyCALineItemsMapping } = syncRequest;
+
+    const itemsToRefund = refundLineItems.map(refundLineItem => {
+        const caLineItem = shopifyCALineItemsMapping[refundLineItem.line_item_id];
+        return {
+            'OrderItemID': caLineItem.caOrderItemId,
+            'Reason': 100,
+            'Quantity': refundLineItem.quantity,
+            'SellerAdjustmentID': refundLineItem.id,
+        }
+    })
+
+    for (const itemToRefund of itemsToRefund) {
+        await channelAdvisorClient.refundItem(itemToRefund['OrderItemID'], {
+            Quantity: itemToRefund['Quantity'],
+            SellerAdjustmentID: `Shopify-${itemToRefund['SellerAdjustmentID']}`
+        })
+    }
+
+    return {};
+}
+
 const processWebhook = async (webhookTopic, webhookPayload) => {
 
     const { id } = webhookPayload;
@@ -80,7 +106,7 @@ const processWebhook = async (webhookTopic, webhookPayload) => {
     }
 
     if (webhookTopic === 'refunds/create') {
-
+        return await handleRefundWebhook(id, webhookTopic, webhookPayload);
     }
 
     console.log(`Shopify webhook processed - id[${id}]`)
