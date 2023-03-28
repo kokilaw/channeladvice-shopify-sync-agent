@@ -29,7 +29,12 @@ nvm alias default 16
 npm install
 ```
 
-5. Start Application
+6. Start Application
 ```shell
 npm start start-local
+```
+
+7. Deploy Application
+```shell
+gcloud functions deploy ca-shopify-sync-function --entry-point syncApp --runtime nodejs16 --trigger-http --project ca-shopify-sync-agent
 ```
