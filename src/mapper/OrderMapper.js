@@ -1,8 +1,11 @@
 const parsePhoneNumber = require('libphonenumber-js')
+const CurrencyUtils = require("../utils/CurrencyUtils");
 
 const getShopifyOrderPayload = async (channelAdvisorOrder, caOrderItemsMapping, shopifyOrderItemsMapping) => {
+    await CurrencyUtils.initCurrencyRate(channelAdvisorOrder);
     const customer = getCustomer(channelAdvisorOrder);
     const line_items = getLineItems(channelAdvisorOrder.Items, caOrderItemsMapping, shopifyOrderItemsMapping)
+
     return {
         note: `[CA OrderId:${channelAdvisorOrder.ID}]\n[Site OrderId:${channelAdvisorOrder.SiteOrderID}]`,
         tags: channelAdvisorOrder.SiteName,
@@ -13,22 +16,22 @@ const getShopifyOrderPayload = async (channelAdvisorOrder, caOrderItemsMapping, 
         // TODO - Remove hardcoded values
         payment_gateway_names: ["The Market"],
         taxes_included: true,
-        currency: channelAdvisorOrder.Currency,
-        total_tax: channelAdvisorOrder.TotalTaxPrice,
-        subtotal_price: channelAdvisorOrder.TotalPrice,
-        total_price: channelAdvisorOrder.TotalPrice,
+        currency: CurrencyUtils.getShopifyCurrency(),
+        total_tax: CurrencyUtils.convertPrice(channelAdvisorOrder.TotalTaxPrice),
+        subtotal_price: CurrencyUtils.convertPrice(channelAdvisorOrder.TotalPrice),
+        total_price: CurrencyUtils.convertPrice(channelAdvisorOrder.TotalPrice),
         tax_lines: [{
-            price: channelAdvisorOrder.TotalTaxPrice,
+            price: CurrencyUtils.convertPrice(channelAdvisorOrder.TotalTaxPrice),
             title: 'Tax'
         }],
         shipping_address: {...customer.default_address},
         shipping_lines: [{
             code: "custom",
-            price: channelAdvisorOrder.TotalShippingPrice,
+            price: CurrencyUtils.convertPrice(channelAdvisorOrder.TotalShippingPrice),
             // TODO - Remove hardcoded values
             title: "The Market Standard",
             tax_lines: [{
-                price: channelAdvisorOrder.TotalShippingTaxPrice,
+                price: CurrencyUtils.convertPrice(channelAdvisorOrder.TotalShippingTaxPrice),
                 rate: 0,
                 title: 'Shipping Tax',
             }]
@@ -43,7 +46,7 @@ const getLineItems = (caOrderItems, caOrderItemsMapping, shopifyOrderItemsMappin
         return {
             variant_id: extractShopifyVariationId(shopifyOrderItem.id),
             quantity: caOrderItem.Quantity,
-            price: caOrderItem.UnitPrice
+            price: CurrencyUtils.convertPrice(caOrderItem.UnitPrice)
         }
     })
 }
@@ -54,6 +57,7 @@ const getCustomer = (channelAdvisorOrder) => {
         ShippingLastName,
         BuyerEmailAddress,
         ShippingDaytimePhone,
+        ShippingAddressLine1,
         ShippingAddressLine2,
         ShippingCity,
         ShippingStateOrProvinceName,
@@ -68,7 +72,7 @@ const getCustomer = (channelAdvisorOrder) => {
         default_address: {
             first_name: ShippingFirstName,
             last_name: ShippingLastName,
-            address1: ShippingAddressLine2,
+            address1: `${ShippingAddressLine1 ? ShippingAddressLine1 + ', ' : ''}${ShippingAddressLine2}`,
             city: ShippingCity,
             province: ShippingStateOrProvinceName,
             zip: ShippingPostalCode,
@@ -81,7 +85,7 @@ const getCustomer = (channelAdvisorOrder) => {
 }
 
 const formatPhoneNumber = (phoneNumber, countryCode) => {
-    if (phoneNumber === '555-555-5555') {
+    if (phoneNumber === '555-555-5555' || !phoneNumber) {
         return `+640204${randomNumber(7)}`;
     }
     return parsePhoneNumber(phoneNumber, countryCode).number;

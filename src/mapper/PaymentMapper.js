@@ -1,4 +1,4 @@
-
+const CurrencyUtils = require("../utils/CurrencyUtils");
 
 const getShopifyPaymentPayload = async (orderId, caOrder) => {
     return {
@@ -6,8 +6,8 @@ const getShopifyPaymentPayload = async (orderId, caOrder) => {
         // TODO - Remove hardcoded values
         gateway: "The Market",
         status: "success",
-        amount: caOrder.TotalPrice,
-        currency: caOrder.Currency,
+        amount: CurrencyUtils.convertPrice(caOrder.TotalPrice),
+        currency: CurrencyUtils.getShopifyCurrency(),
         source: "external"
     }
 }

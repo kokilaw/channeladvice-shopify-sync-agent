@@ -1,4 +1,4 @@
-const { isNil } = require('lodash');
+const {isNil} = require('lodash');
 
 const ENVIRONMENT_VARIABLE_KEYS = {
     CHANNEL_ADVISOR_APPLICATION_ID: 'CHANNEL_ADVISOR_APPLICATION_ID',
@@ -8,6 +8,7 @@ const ENVIRONMENT_VARIABLE_KEYS = {
     SHOPIFY_ADMIN_API_TOKEN: 'SHOPIFY_ADMIN_API_TOKEN',
     GOOGLE_CLOUD_PROJECT_ENV: 'GOOGLE_CLOUD_PROJECT_ENV',
     GOOGLE_CLOUD_PROJECT_ID: 'GOOGLE_CLOUD_PROJECT_ID',
+    FREE_CURRENCY_API_KEY: 'FREE_CURRENCY_API_KEY',
 }
 
 const getConfigFromEnv = (key, isOptional) => {
@@ -44,9 +45,16 @@ const appConfig = {
     runningEnv: getConfigFromEnv('RUNNING_ENV', true) || ''
 }
 
+const currencyApiConfig = {
+    freeCurrencyApiUrl: 'https://api.freecurrencyapi.com/v1/latest',
+    freeCurrencyApiKey: getConfigFromEnv(ENVIRONMENT_VARIABLE_KEYS.FREE_CURRENCY_API_KEY, false),
+    shopifyCurrency: 'AUD'
+}
+
 module.exports = {
     channelAdvisorAPIConfigs,
     shopifyAPIConfigs,
     appConfig,
-    googleCloudConfig
+    googleCloudConfig,
+    currencyApiConfig
 }
