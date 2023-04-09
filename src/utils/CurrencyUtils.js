@@ -19,7 +19,12 @@ class CurrencyUtils {
     }
 
     async initCurrencyRate(channelAdvisorOrder) {
-        this.currencyRate = await getCurrencyRate(channelAdvisorOrder.Currency, this.getShopifyCurrency());
+        if (channelAdvisorOrder.Currency === 'AUD') {
+            this.currencyRate = 1;
+            console.log("CA Order Currency is AUD");
+        } else {
+            this.currencyRate = await getCurrencyRate(channelAdvisorOrder.Currency, this.getShopifyCurrency());
+        }
     }
 
 }

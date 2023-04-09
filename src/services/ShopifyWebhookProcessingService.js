@@ -109,8 +109,32 @@ const processWebhook = async (webhookTopic, webhookPayload) => {
         return await handleRefundWebhook(id, webhookTopic, webhookPayload);
     }
 
+    if (webhookTopic === 'products/create') {
+        return await handleProductCreate(id, webhookPayload);
+    }
+
+    if (webhookTopic === 'products/update') {
+        return await handleProductUpdate(id, webhookPayload);
+    }
+
+    if (webhookTopic === 'products/delete') {
+        return await handleProductDelete(id, webhookPayload);
+    }
+
     console.log(`Shopify webhook processed - id[${id}]`)
 
+}
+
+async function handleProductCreate(id, webhookPayload) {
+    console.log(`Shopify products/create webhook - id[${id}] webhookPayload:[${JSON.stringify(webhookPayload)}]`);
+}
+
+async function handleProductUpdate(id, webhookPayload) {
+    console.log(`Shopify products/update webhook - id[${id}] webhookPayload:[${JSON.stringify(webhookPayload)}]`);
+}
+
+async function handleProductDelete(id, webhookPayload) {
+    console.log(`Shopify products/delete webhook - id[${id}] webhookPayload:[${JSON.stringify(webhookPayload)}]`);
 }
 
 const getShopifyFulfillmentToProcess = (fulfillments, processedShopifyFulfillment) => {

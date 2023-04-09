@@ -7,7 +7,7 @@ const getShopifyOrderPayload = async (channelAdvisorOrder, caOrderItemsMapping, 
     const line_items = getLineItems(channelAdvisorOrder.Items, caOrderItemsMapping, shopifyOrderItemsMapping)
 
     return {
-        note: `[CA OrderId:${channelAdvisorOrder.ID}]\n[Site OrderId:${channelAdvisorOrder.SiteOrderID}]`,
+        note: getNote(channelAdvisorOrder),
         tags: channelAdvisorOrder.SiteName,
         contact_email: channelAdvisorOrder.BuyerEmailAddress,
         email: channelAdvisorOrder.BuyerEmailAddress,
@@ -29,7 +29,7 @@ const getShopifyOrderPayload = async (channelAdvisorOrder, caOrderItemsMapping, 
             code: "custom",
             price: CurrencyUtils.convertPrice(channelAdvisorOrder.TotalShippingPrice),
             // TODO - Remove hardcoded values
-            title: "The Market Standard",
+            title: getShippingTitle(channelAdvisorOrder), //"The Market Standard"
             tax_lines: [{
                 price: CurrencyUtils.convertPrice(channelAdvisorOrder.TotalShippingTaxPrice),
                 rate: 0,
@@ -37,6 +37,24 @@ const getShopifyOrderPayload = async (channelAdvisorOrder, caOrderItemsMapping, 
             }]
         }]
     }
+}
+
+const getNote = (channelAdvisorOrder) => {
+    var note = `[CA OrderId:${channelAdvisorOrder.ID}]\n[Site OrderId:${channelAdvisorOrder.SiteOrderID}]`;
+    if (channelAdvisorOrder.Fulfillments[0]?.TrackingNumber) note = `${note}\n[Carrier Tracking Number:${channelAdvisorOrder.Fulfillments[0]?.TrackingNumber}]`
+    if (channelAdvisorOrder.Fulfillments[0]?.TrackingUrl) note = `${note}\n[Carrier Tracking URL:${channelAdvisorOrder.Fulfillments[0]?.TrackingUrl}]`
+    return note;
+}
+
+const getShippingTitle = (channelAdvisorOrder) => {
+    var shippingTitle = "";
+    if (channelAdvisorOrder.Fulfillments[0]?.ShippingCarrier) {
+        shippingTitle = `${channelAdvisorOrder.Fulfillments[0]?.ShippingCarrier} `;
+    }
+    if (channelAdvisorOrder.Fulfillments[0]?.ShippingClass) {
+        shippingTitle = shippingTitle + channelAdvisorOrder.Fulfillments[0]?.ShippingClass;
+    }
+    return shippingTitle ? shippingTitle : "Default";
 }
 
 const getLineItems = (caOrderItems, caOrderItemsMapping, shopifyOrderItemsMapping) => {
