@@ -1,0 +1,494 @@
+{
+  "id": 4623792898235,
+  "admin_graphql_api_id": "gid://shopify/Order/4623792898235",
+  "app_id": 16685203457,
+  "browser_ip": null,
+  "buyer_accepts_marketing": false,
+  "cancel_reason": null,
+  "cancelled_at": null,
+  "cart_token": null,
+  "checkout_id": null,
+  "checkout_token": null,
+  "closed_at": "2022-11-21T08:45:17-05:00",
+  "confirmed": true,
+  "contact_email": "5847bbac3cc4ecdd7141@members.ebay.com",
+  "created_at": "2022-11-14T19:07:03-05:00",
+  "currency": "AUD",
+  "current_subtotal_price": "62.97",
+  "current_subtotal_price_set": {
+    "shop_money": {
+      "amount": "62.97",
+      "currency_code": "AUD"
+    },
+    "presentment_money": {
+      "amount": "62.97",
+      "currency_code": "AUD"
+    }
+  },
+  "current_total_discounts": "0.00",
+  "current_total_discounts_set": {
+    "shop_money": {
+      "amount": "0.00",
+      "currency_code": "AUD"
+    },
+    "presentment_money": {
+      "amount": "0.00",
+      "currency_code": "AUD"
+    }
+  },
+  "current_total_duties_set": null,
+  "current_total_price": "62.97",
+  "current_total_price_set": {
+    "shop_money": {
+      "amount": "62.97",
+      "currency_code": "AUD"
+    },
+    "presentment_money": {
+      "amount": "62.97",
+      "currency_code": "AUD"
+    }
+  },
+  "current_total_tax": "5.72",
+  "current_total_tax_set": {
+    "shop_money": {
+      "amount": "5.72",
+      "currency_code": "AUD"
+    },
+    "presentment_money": {
+      "amount": "5.72",
+      "currency_code": "AUD"
+    }
+  },
+  "customer_locale": null,
+  "device_id": null,
+  "discount_codes": [
+
+  ],
+  "email": "5847bbac3cc4ecdd7141@members.ebay.com",
+  "estimated_taxes": false,
+  "financial_status": "paid",
+  "fulfillment_status": "fulfilled",
+  "gateway": "The Market",
+  "landing_site": null,
+  "landing_site_ref": null,
+  "location_id": null,
+  "merchant_of_record_app_id": null,
+  "name": "#1010",
+  "note": "[Test Order Please Ignore] CA OrderId:4543570",
+  "note_attributes": [
+
+  ],
+  "number": 10,
+  "order_number": 1010,
+  "order_status_url": "https://ishoes-nz-test.myshopify.com/63214649531/orders/9d45f8381a7c62f27c0ce87e5a7fff10/authenticate?key=bfa4a7a32fb73f536c92e230625ec20b",
+  "original_total_duties_set": null,
+  "payment_gateway_names": [
+    "The Market"
+  ],
+  "phone": null,
+  "presentment_currency": "AUD",
+  "processed_at": "2022-11-14T19:07:03-05:00",
+  "processing_method": "",
+  "reference": null,
+  "referring_site": null,
+  "source_identifier": null,
+  "source_name": "16685203457",
+  "source_url": null,
+  "subtotal_price": "62.97",
+  "subtotal_price_set": {
+    "shop_money": {
+      "amount": "62.97",
+      "currency_code": "AUD"
+    },
+    "presentment_money": {
+      "amount": "62.97",
+      "currency_code": "AUD"
+    }
+  },
+  "tags": "eBay Fixed Price AU",
+  "tax_lines": [
+    {
+      "price": "5.72",
+      "rate": 0,
+      "title": "Tax",
+      "price_set": {
+        "shop_money": {
+          "amount": "5.72",
+          "currency_code": "AUD"
+        },
+        "presentment_money": {
+          "amount": "5.72",
+          "currency_code": "AUD"
+        }
+      },
+      "channel_liable": null
+    }
+  ],
+  "taxes_included": true,
+  "test": false,
+  "token": "9d45f8381a7c62f27c0ce87e5a7fff10",
+  "total_discounts": "0.00",
+  "total_discounts_set": {
+    "shop_money": {
+      "amount": "0.00",
+      "currency_code": "AUD"
+    },
+    "presentment_money": {
+      "amount": "0.00",
+      "currency_code": "AUD"
+    }
+  },
+  "total_line_items_price": "62.97",
+  "total_line_items_price_set": {
+    "shop_money": {
+      "amount": "62.97",
+      "currency_code": "AUD"
+    },
+    "presentment_money": {
+      "amount": "62.97",
+      "currency_code": "AUD"
+    }
+  },
+  "total_outstanding": "0.00",
+  "total_price": "62.97",
+  "total_price_set": {
+    "shop_money": {
+      "amount": "62.97",
+      "currency_code": "AUD"
+    },
+    "presentment_money": {
+      "amount": "62.97",
+      "currency_code": "AUD"
+    }
+  },
+  "total_shipping_price_set": {
+    "shop_money": {
+      "amount": "0.00",
+      "currency_code": "AUD"
+    },
+    "presentment_money": {
+      "amount": "0.00",
+      "currency_code": "AUD"
+    }
+  },
+  "total_tax": "5.72",
+  "total_tax_set": {
+    "shop_money": {
+      "amount": "5.72",
+      "currency_code": "AUD"
+    },
+    "presentment_money": {
+      "amount": "5.72",
+      "currency_code": "AUD"
+    }
+  },
+  "total_tip_received": "0.00",
+  "total_weight": 0,
+  "updated_at": "2022-11-21T08:45:17-05:00",
+  "user_id": null,
+  "customer": {
+    "id": 6302814044347,
+    "email": "5847bbac3cc4ecdd7141@members.ebay.com",
+    "accepts_marketing": false,
+    "created_at": "2022-11-14T16:39:09-05:00",
+    "updated_at": "2022-11-14T19:07:04-05:00",
+    "first_name": "Apple",
+    "last_name": "Zhang",
+    "state": "disabled",
+    "note": null,
+    "verified_email": true,
+    "multipass_identifier": null,
+    "tax_exempt": false,
+    "tags": "",
+    "currency": "AUD",
+    "phone": "+61455505879",
+    "accepts_marketing_updated_at": "2022-11-14T16:39:09-05:00",
+    "marketing_opt_in_level": null,
+    "tax_exemptions": [
+
+    ],
+    "email_marketing_consent": {
+      "state": "not_subscribed",
+      "opt_in_level": "single_opt_in",
+      "consent_updated_at": null
+    },
+    "sms_marketing_consent": {
+      "state": "not_subscribed",
+      "opt_in_level": "single_opt_in",
+      "consent_updated_at": null,
+      "consent_collected_from": "OTHER"
+    },
+    "admin_graphql_api_id": "gid://shopify/Customer/6302814044347",
+    "default_address": {
+      "id": 7586023506107,
+      "customer_id": 6302814044347,
+      "first_name": "Apple",
+      "last_name": "Zhang",
+      "company": null,
+      "address1": "9 Hayes St",
+      "address2": null,
+      "city": "Goonellabah",
+      "province": "New South Wales",
+      "country": "Australia",
+      "zip": "2480",
+      "phone": "+61455505879",
+      "name": "Apple Zhang",
+      "province_code": "NSW",
+      "country_code": "AU",
+      "country_name": "Australia",
+      "default": true
+    }
+  },
+  "discount_applications": [
+
+  ],
+  "fulfillments": [
+    {
+      "id": 4087291609275,
+      "admin_graphql_api_id": "gid://shopify/Fulfillment/4087291609275",
+      "created_at": "2022-11-21T08:45:17-05:00",
+      "location_id": 68362830011,
+      "name": "#1010.1",
+      "order_id": 4623792898235,
+      "origin_address": {
+
+      },
+      "receipt": {
+
+      },
+      "service": "manual",
+      "shipment_status": null,
+      "status": "success",
+      "tracking_company": "StarTrack",
+      "tracking_number": "234234232342",
+      "tracking_numbers": [
+        "234234232342"
+      ],
+      "tracking_url": "https://startrack.com.au/track/details/234234232342",
+      "tracking_urls": [
+        "https://startrack.com.au/track/details/234234232342"
+      ],
+      "updated_at": "2022-11-21T08:45:17-05:00",
+      "line_items": [
+        {
+          "id": 11610820051131,
+          "admin_graphql_api_id": "gid://shopify/LineItem/11610820051131",
+          "fulfillable_quantity": 0,
+          "fulfillment_service": "manual",
+          "fulfillment_status": "fulfilled",
+          "gift_card": false,
+          "grams": 0,
+          "name": "CASITA - 38 / Red",
+          "price": "62.97",
+          "price_set": {
+            "shop_money": {
+              "amount": "62.97",
+              "currency_code": "AUD"
+            },
+            "presentment_money": {
+              "amount": "62.97",
+              "currency_code": "AUD"
+            }
+          },
+          "product_exists": true,
+          "product_id": 7732040827067,
+          "properties": [
+
+          ],
+          "quantity": 1,
+          "requires_shipping": true,
+          "sku": "JBCASITA-Red-38",
+          "taxable": true,
+          "title": "CASITA",
+          "total_discount": "0.00",
+          "total_discount_set": {
+            "shop_money": {
+              "amount": "0.00",
+              "currency_code": "AUD"
+            },
+            "presentment_money": {
+              "amount": "0.00",
+              "currency_code": "AUD"
+            }
+          },
+          "variant_id": 43890363728059,
+          "variant_inventory_management": "shopify",
+          "variant_title": "38 / Red",
+          "vendor": "JUST BEE",
+          "tax_lines": [
+            {
+              "channel_liable": null,
+              "price": "5.72",
+              "price_set": {
+                "shop_money": {
+                  "amount": "5.72",
+                  "currency_code": "AUD"
+                },
+                "presentment_money": {
+                  "amount": "5.72",
+                  "currency_code": "AUD"
+                }
+              },
+              "rate": 0,
+              "title": "Tax"
+            }
+          ],
+          "duties": [
+
+          ],
+          "discount_allocations": [
+
+          ]
+        }
+      ]
+    }
+  ],
+  "line_items": [
+    {
+      "id": 11610820051131,
+      "admin_graphql_api_id": "gid://shopify/LineItem/11610820051131",
+      "fulfillable_quantity": 0,
+      "fulfillment_service": "manual",
+      "fulfillment_status": "fulfilled",
+      "gift_card": false,
+      "grams": 0,
+      "name": "CASITA - 38 / Red",
+      "price": "62.97",
+      "price_set": {
+        "shop_money": {
+          "amount": "62.97",
+          "currency_code": "AUD"
+        },
+        "presentment_money": {
+          "amount": "62.97",
+          "currency_code": "AUD"
+        }
+      },
+      "product_exists": true,
+      "product_id": 7732040827067,
+      "properties": [
+
+      ],
+      "quantity": 1,
+      "requires_shipping": true,
+      "sku": "JBCASITA-Red-38",
+      "taxable": true,
+      "title": "CASITA",
+      "total_discount": "0.00",
+      "total_discount_set": {
+        "shop_money": {
+          "amount": "0.00",
+          "currency_code": "AUD"
+        },
+        "presentment_money": {
+          "amount": "0.00",
+          "currency_code": "AUD"
+        }
+      },
+      "variant_id": 43890363728059,
+      "variant_inventory_management": "shopify",
+      "variant_title": "38 / Red",
+      "vendor": "JUST BEE",
+      "tax_lines": [
+        {
+          "channel_liable": null,
+          "price": "5.72",
+          "price_set": {
+            "shop_money": {
+              "amount": "5.72",
+              "currency_code": "AUD"
+            },
+            "presentment_money": {
+              "amount": "5.72",
+              "currency_code": "AUD"
+            }
+          },
+          "rate": 0,
+          "title": "Tax"
+        }
+      ],
+      "duties": [
+
+      ],
+      "discount_allocations": [
+
+      ]
+    }
+  ],
+  "payment_terms": null,
+  "refunds": [
+
+  ],
+  "shipping_address": {
+    "first_name": "Apple",
+    "address1": "9 Hayes St",
+    "phone": "+61455505879",
+    "city": "Goonellabah",
+    "zip": "2480",
+    "province": "New South Wales",
+    "country": "Australia",
+    "last_name": "Zhang",
+    "address2": null,
+    "company": null,
+    "latitude": -28.8236154,
+    "longitude": 153.3249062,
+    "name": "Apple Zhang",
+    "country_code": "AU",
+    "province_code": "NSW"
+  },
+  "shipping_lines": [
+    {
+      "id": 3817161556155,
+      "carrier_identifier": null,
+      "code": "custom",
+      "delivery_category": null,
+      "discounted_price": "0.00",
+      "discounted_price_set": {
+        "shop_money": {
+          "amount": "0.00",
+          "currency_code": "AUD"
+        },
+        "presentment_money": {
+          "amount": "0.00",
+          "currency_code": "AUD"
+        }
+      },
+      "phone": null,
+      "price": "0.00",
+      "price_set": {
+        "shop_money": {
+          "amount": "0.00",
+          "currency_code": "AUD"
+        },
+        "presentment_money": {
+          "amount": "0.00",
+          "currency_code": "AUD"
+        }
+      },
+      "requested_fulfillment_service_id": null,
+      "source": null,
+      "title": "The Market Standard",
+      "tax_lines": [
+        {
+          "channel_liable": null,
+          "price": "0.00",
+          "price_set": {
+            "shop_money": {
+              "amount": "0.00",
+              "currency_code": "AUD"
+            },
+            "presentment_money": {
+              "amount": "0.00",
+              "currency_code": "AUD"
+            }
+          },
+          "rate": 0,
+          "title": "Shipping Tax"
+        }
+      ],
+      "discount_allocations": [
+
+      ]
+    }
+  ]
+}
